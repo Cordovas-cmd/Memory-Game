@@ -1,4 +1,4 @@
-// Variable to set up different cards
+// Variable to set up an array of objects to make different cards
 const cardArray = [
     {
         name: 'fries',
@@ -50,12 +50,37 @@ const cardArray = [
     }
 ]
 
-// console.log(cardArray)
-
 //sorts an array randomly
 /* Sort compares two values and then sorts through it , 
-this math random will return back a number anywhere from 0 to -1
+------------------------------------------------------------------
+this math random will return back a number anywhere from 0 to -1 ||
+------------------------------------------------------------------
 so here we are checking whether it's smaller than 0.5 or larger than 0.5 and shuffle it based on that.*/
 cardArray.sort(() => 0.5 - Math.random())
 
 console.log(cardArray)
+
+// go into the document and search for the element with an id of grid
+const gridDisplay = document.querySelector('#grid')
+
+console.log(gridDisplay)
+
+function createBoard() {
+
+    // the syntax for a "for loop"-----------------------------------------------------------
+
+    /* start from 0 (let i = 0" as long as i is smaller then the array length then increment by one) */
+    for (let i = 0; i < cardArray.length; i++) {
+
+        // Set the value of the variable card to Create an image element 
+    const card = document.createElement('img')
+    // Set the attribute which will ultimately print the image to the card.
+    card.setAttribute('src', 'images/blank.png')
+    // adds a data id as well as a number based on i to keep track of the number
+    card.setAttribute('data-id', i)
+    //Appends the image to html so that it can finally display it.
+    gridDisplay.appendChild(card)
+    }
+}
+
+createBoard()

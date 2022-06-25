@@ -63,8 +63,13 @@ console.log(cardArray)
 
 // go into the document and search for the element with an id of grid
 const gridDisplay = document.querySelector('.grid')
-// take the name of the card we clicked and put it into another array, USE const because we aren't going to be changing we are just pushing items into it
-const cardsChosen = []
+const resultDisplay = document.querySelector('#result')
+// take the name of the card we clicked and put it into another array, USE letbecause we aregoing to be changing it later after we push items into it.
+let cardsChosen = []
+// holds the value of the card ID for camparison purposes
+let chosenCardIds = []
+// An array to collect the number of "matches" or "points"
+const cardsMatched = []
 
 console.log(gridDisplay)
 
@@ -90,6 +95,58 @@ function createBoard() {
 }
 createBoard()
 
+function checkMatch() {
+
+    // Get all the cards or 'img' elements and assign them to a variable in order to compare for a match
+    const cards = document.querySelectorAll('.grid img')
+
+    // Assigning variable to get the ID of the card inside the array
+    const optionOneId = chosenCardIds[0]
+    const optionTwoId = chosenCardIds[1]
+
+    console.log(cards)
+    console.log('check for a match!')
+
+    if (optionOneId == optionTwoId) {
+    alert=("You have clicked the same image!")
+    cards[optionOneId].setAttribute('src', 'images/blank.png')
+        cards[optionTwoId].setAttribute('src', 'images/blank.png')
+
+    }
+
+    // Simple code that checks the values entered into the cardChosen array for a match  
+    if (cardsChosen[0] == cardsChosen[1]) {
+        alert("You've found a match!")
+
+        // If the two cards chosen are a match re-assign them a background color of white the 0 and 1 value is based on the array of cardsChosen
+        cards[optionOneId].setAttribute('src', 'images/white.png')
+        cards[optionTwoId].setAttribute('src', 'images/white.png')
+
+        // Also once the two cards match, remove the event listener from them so they can't be clicked.
+        cards[optionOneId].removeEventListener('click', flipcard)
+        cards[optionTwoId].removeEventListener('click', flipcard)
+ 
+        // how many matches do we have?
+        cardsMatched.push(cardsChosen)
+
+    // If you don't find a match "flip" it back over
+    } else {
+    cards[optionOneId].setAttribute('src', 'images/blank.png')
+    cards[optionTwoId].setAttribute('src', 'images/blank.png')
+    alert("Sorry try again!")
+
+    }
+    resultDisplay.textContent = cardsMatched.length
+    cardsChosen = []
+    chosenCardIds = []
+
+    // If you have matched all the cards (/2 because half of 12 is 6) 
+    if (cardsMatched.length == cardArray.length/2) {
+        // then change the #result inner html / textContent
+    resultDisplay.textContent = "Congratulations you've found them all!"
+    }
+}
+
 // Function to allow us to flip the card when we click it 
 function flipCard() {
     console.log('cardArray')
@@ -99,10 +156,17 @@ function flipCard() {
     console.log(cardArray[cardId].name)
     //Push each chosen or "clicked" card into the array cardsChosen. 
     cardsChosen.push(cardArray[cardId].name)
+    chosenCardIds.push(cardId)
+    console.log(chosenCardIds)
     // need a way to tell which card was clicked. 
     console.log('clicked', cardId)
     console.log(cardsChosen)
     // Whenever I clicked the card I reset the src to the appropriate image and display it.
     this.setAttribute('src', cardArray[cardId].img)
+    if (cardsChosen.length === 2) {
+
+    // set a timeout to let us see both of the cards first before revealing whether it's a match or not.
+    setTimeout(checkMatch, 500)
+    }
 }
 })

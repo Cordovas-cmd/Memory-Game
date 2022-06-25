@@ -63,6 +63,8 @@ console.log(cardArray)
 
 // go into the document and search for the element with an id of grid
 const gridDisplay = document.querySelector('.grid')
+// take the name of the card we clicked and put it into another array, USE const because we aren't going to be changing we are just pushing items into it
+const cardsChosen = []
 
 console.log(gridDisplay)
 
@@ -90,10 +92,17 @@ createBoard()
 
 // Function to allow us to flip the card when we click it 
 function flipCard() {
-    
+    console.log('cardArray')
     //this keyword use whatever element we clicked and will get it's data
     let cardId = this.getAttribute('data-id');
+    // Console logging the name of the object/card based on the arroy 
+    console.log(cardArray[cardId].name)
+    //Push each chosen or "clicked" card into the array cardsChosen. 
+    cardsChosen.push(cardArray[cardId].name)
     // need a way to tell which card was clicked. 
     console.log('clicked', cardId)
+    console.log(cardsChosen)
+    // Whenever I clicked the card I reset the src to the appropriate image and display it.
+    this.setAttribute('src', cardArray[cardId].img)
 }
 })

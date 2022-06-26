@@ -93,6 +93,7 @@ function createBoard() {
         
     }
 }
+
 createBoard()
 
 function checkMatch() {
@@ -110,7 +111,7 @@ function checkMatch() {
     if (optionOneId == optionTwoId) {
     alert=("You have clicked the same image!")
     cards[optionOneId].setAttribute('src', 'images/blank.png')
-        cards[optionTwoId].setAttribute('src', 'images/blank.png')
+    cards[optionTwoId].setAttribute('src', 'images/blank.png')
 
     }
 
@@ -123,10 +124,12 @@ function checkMatch() {
         cards[optionTwoId].setAttribute('src', 'images/white.png')
 
         // Also once the two cards match, remove the event listener from them so they can't be clicked.
-        cards[optionOneId].removeEventListener('click', flipcard)
-        cards[optionTwoId].removeEventListener('click', flipcard)
+        cards[optionOneId].removeEventListener('click', flipCard)
+        cards[optionTwoId].removeEventListener('click', flipCard)
  
-        // how many matches do we have?
+
+        
+        // how many matches do we have? ties to points.
         cardsMatched.push(cardsChosen)
 
     // If you don't find a match "flip" it back over
@@ -136,6 +139,7 @@ function checkMatch() {
     alert("Sorry try again!")
 
     }
+    // increase the "score" to display amount of matches.
     resultDisplay.textContent = cardsMatched.length
     cardsChosen = []
     chosenCardIds = []
@@ -143,7 +147,7 @@ function checkMatch() {
     // If you have matched all the cards (/2 because half of 12 is 6) 
     if (cardsMatched.length == cardArray.length/2) {
         // then change the #result inner html / textContent
-    resultDisplay.textContent = "Congratulations you've found them all!"
+    resultDisplay.textContent = 'Congratulations youve found them all!'
     }
 }
 

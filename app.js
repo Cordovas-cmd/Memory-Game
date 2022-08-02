@@ -174,3 +174,8 @@ function flipCard() {
     }
 }
 })
+
+// Want to add custom assets
+// Add levels
+// Add difficulties
+// add high score functions
